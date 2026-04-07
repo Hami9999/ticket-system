@@ -9,7 +9,7 @@ class CustomerSeeder extends Seeder
 {
     public function run(): void
     {
-        Customer::truncate();
+        Customer::query()->delete();
         Customer::factory(10)->create();
     }
 }
