@@ -1,29 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
+        Profile
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        @if(session('success'))
+            <div class="bg-green-100 text-green-800 p-4 rounded mb-4">
+                {{ session('success') }}
             </div>
+        @endif
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PATCH')
+            <div class="mb-4">
+                <label for="name">Name</label>
+                <input id="name" name="name" value="{{ auth()->user()->name }}" class="border p-2 rounded w-full">
             </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
+            <div class="mb-4">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" value="{{ auth()->user()->email }}" class="border p-2 rounded w-full">
             </div>
-        </div>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Update</button>
+        </form>
     </div>
 </x-app-layout>
