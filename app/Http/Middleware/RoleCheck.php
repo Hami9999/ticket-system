@@ -1,5 +1,4 @@
 <?php
-// app/Http/Middleware/RoleCheck.php
 
 namespace App\Http\Middleware;
 
@@ -8,12 +7,20 @@ use Illuminate\Http\Request;
 
 class RoleCheck
 {
-    public function handle(Request $request, Closure $next, string $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
         $user = $request->user();
-        if (!$user || !$user->hasRole($role)) {
-            abort(403);
+
+        if (!$user) {
+            return redirect('/login');
         }
-        return $next($request);
+
+        foreach ($roles as $role) {
+            if ($user->hasRole($role)) {
+                return $next($request);
+            }
+        }
+
+        abort(403, 'Unauthorized');
     }
 }
