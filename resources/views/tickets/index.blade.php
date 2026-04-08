@@ -30,10 +30,9 @@
                     <td class="border px-4 py-2">{{ ucfirst($ticket->status) }}</td>
                     <td class="border px-4 py-2">{{ $ticket->created_at->format('Y-m-d H:i') }}</td>
                     <td class="border px-4 py-2 flex gap-2">
-                        <a href="{{ route('tickets.show', $ticket) }}" class="bg-blue-500 text-white px-2 py-1 rounded">View</a>
-
+                        <a href="{{ route('tickets.show',$ticket) }}" class="bg-blue-500 text-white px-2 py-1 rounded">View</a>
                         @role('admin')
-                        <form action="{{ route('tickets.destroy', $ticket) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                        <form action="{{ route('tickets.destroy',$ticket) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>

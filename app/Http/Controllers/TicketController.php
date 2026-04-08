@@ -10,7 +10,7 @@ class TicketController extends Controller
     // Admin: list all tickets
     public function index()
     {
-        $this->authorizeRole('admin');
+        $this->authorizeRole(['admin', 'manager']);
 
         $tickets = Ticket::with('customer')->latest()->get();
         return view('tickets.index', compact('tickets'));
@@ -19,7 +19,7 @@ class TicketController extends Controller
     // Admin: show ticket details
     public function show(Ticket $ticket)
     {
-        $this->authorizeRole('admin');
+        $this->authorizeRole(['admin', 'manager']);
 
         return view('tickets.show', compact('ticket'));
     }
@@ -27,7 +27,7 @@ class TicketController extends Controller
     // Admin: delete ticket
     public function destroy(Ticket $ticket)
     {
-        $this->authorizeRole('admin');
+        $this->authorizeRole(['admin']);
 
         $ticket->delete();
 
@@ -37,7 +37,7 @@ class TicketController extends Controller
     // Manager: reply to ticket
     public function reply(Request $request, Ticket $ticket)
     {
-        $this->authorizeRole(['admin', 'manager']);
+        $this->authorizeRole(['admin','manager']);
 
         $request->validate([
             'message' => 'required|string',
