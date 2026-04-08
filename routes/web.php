@@ -15,7 +15,7 @@ Route::post('/api/tickets', [TicketWidgetController::class, 'store'])->name('wid
 // Authenticated routes
 Route::middleware(['auth'])->group(function () {
 
-    // Admin / manager
+    // Admin / Manager
     Route::prefix('admin')->group(function () {
         Route::get('/tickets', [TicketController::class, 'index'])
             ->middleware([RoleCheck::class.':admin,manager'])
@@ -33,6 +33,12 @@ Route::middleware(['auth'])->group(function () {
             ->middleware([RoleCheck::class.':manager'])
             ->name('tickets.reply');
     });
+
+    // ========================
+    // API: ticket statistics
+    // ========================
+    Route::get('/api/tickets/statistics', [TicketController::class, 'statistics'])
+        ->name('tickets.statistics');
 
     // Profile
     Route::get('/profile', function () {

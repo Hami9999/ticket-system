@@ -10,6 +10,22 @@
         </div>
     @endif
 
+    <!-- Filter Form -->
+    <form method="GET" class="mb-4 flex gap-2 flex-wrap">
+        <input type="text" name="email" placeholder="Customer Email" value="{{ request('email') }}" class="border px-2 py-1 rounded">
+        <input type="text" name="phone" placeholder="Customer Phone" value="{{ request('phone') }}" class="border px-2 py-1 rounded">
+        <select name="status" class="border px-2 py-1 rounded">
+            <option value="">All Status</option>
+            <option value="new" {{ request('status') == 'new' ? 'selected' : '' }}>New</option>
+            <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+            <option value="answered" {{ request('status') == 'answered' ? 'selected' : '' }}>Answered</option>
+        </select>
+        <input type="date" name="date_from" value="{{ request('date_from') }}" class="border px-2 py-1 rounded">
+        <input type="date" name="date_to" value="{{ request('date_to') }}" class="border px-2 py-1 rounded">
+        <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded">Filter</button>
+        <a href="{{ route('tickets.index') }}" class="bg-gray-300 px-3 py-1 rounded">Reset</a>
+    </form>
+
     <table class="w-full table-auto border border-gray-300">
         <thead class="bg-gray-200">
             <tr>
