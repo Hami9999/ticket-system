@@ -60,3 +60,4 @@ Route::middleware(['auth'])->group(function () {
         return redirect('/');
     })->name('dashboard');
 });
+Route::get('/api/test', [TicketController::class, 'test']);
